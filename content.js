@@ -16,7 +16,7 @@
 
   // Apply defaults synchronously to avoid flash, then correct from storage.
   for (const k of Object.keys(KEYMAP)) {
-    document.documentElement.dataset[KEYMAP[k]] = "true";
+    document.documentElement.setAttribute(`data-${KEYMAP[k]}`, "true");
   }
   if (chrome?.storage?.sync) {
     chrome.storage.sync.get(DEFAULTS, (s) => { applyFlags(s); renderHome(); });
@@ -30,7 +30,7 @@
   }
   function applyFlags(s) {
     for (const k of Object.keys(KEYMAP)) {
-      document.documentElement.dataset[KEYMAP[k]] = s[k] ? "true" : "false";
+      document.documentElement.setAttribute(`data-${KEYMAP[k]}`, s[k] ? "true" : "false");
     }
   }
 
@@ -52,11 +52,13 @@
   window.addEventListener("yt-navigate-finish", () => { maybeRedirect(); renderHome(); });
   window.addEventListener("popstate", () => { maybeRedirect(); renderHome(); });
 
-  // Search-only home: reuse no deps, inline styles to stay in one file.
+  // Search-only home: idempotent so MutationObserver can retry until SPA renders.
   function renderHome() {
-    document.getElementById("derot-home")?.remove();
-    const homeOn = document.documentElement.dataset[KEYMAP.hideHome] !== "false";
-    if (!homeOn || location.pathname !== "/") return;
+    const homeOn = document.documentElement.getAttribute(`data-${KEYMAP.hideHome}`) !== "false";
+    const isHome = location.pathname === "/";
+    document.documentElement.classList.toggle("derot-on-home", homeOn && isHome);
+    if (!homeOn || !isHome) { document.getElementById("derot-home")?.remove(); return; }
+    if (document.getElementById("derot-home")) return;
     const host = document.querySelector("ytd-browse[page-subtype='home']") || document.getElementById("primary");
     if (!host) return;
     const box = document.createElement("div");
@@ -77,15 +79,17 @@
   }
   renderHome();
 
-  // Cheap cleanup: drop Shorts shelves as they render (CSS hides the rest).
-  if (DEFAULTS.hideShorts) {
-    new MutationObserver((muts) => {
-      for (const m of muts) {
-        for (const n of m.addedNodes) {
-          if (n.nodeType !== 1) continue;
-          if (n.matches?.("ytd-reel-shelf-renderer, ytd-rich-shelf-renderer[is-shorts]")) n.remove();
-        }
+  // Single observer: drop Shorts shelves + retry home box until SPA renders.
+  new MutationObserver((muts) => {
+    let retryHome = false;
+    for (const m of muts) {
+      for (const n of m.addedNodes) {
+        if (n.nodeType !== 1) continue;
+        if (n.matches?.("ytd-reel-shelf-renderer, ytd-rich-shelf-renderer[is-shorts]")) n.remove();
+        retryHome = true;
       }
-    }).observe(document.documentElement, { childList: true, subtree: true });
-  }
+      if (m.type === "attributes") retryHome = true;
+    }
+    if (retryHome) renderHome();
+  }).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ["page-subtype"] });
 })();

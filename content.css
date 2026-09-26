@@ -1,9 +1,13 @@
 /* Derot: hide distractions, gated by html[data-derot-hide-*="true"] (set by content.js) */
 
-/* Home feed */
+/* Home feed (page-subtype selector + JS .derot-on-home fallback for SPA) */
 html[data-derot-hide-home="true"] ytd-browse[page-subtype="home"] #primary,
 html[data-derot-hide-home="true"] ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
-html[data-derot-hide-home="true"] ytd-browse[page-subtype="home"] ytd-rich-section-renderer {
+html[data-derot-hide-home="true"] ytd-browse[page-subtype="home"] ytd-rich-section-renderer,
+html[data-derot-hide-home="true"].derot-on-home #primary,
+html[data-derot-hide-home="true"].derot-on-home ytd-rich-grid-renderer,
+html[data-derot-hide-home="true"].derot-on-home ytd-rich-section-renderer,
+html[data-derot-hide-home="true"].derot-on-home ytd-feed-filter-chip-bar-renderer {
   display: none !important;
 }
 
