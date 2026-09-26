@@ -7,8 +7,10 @@
   "host_permissions": ["*://*.youtube.com/*"],
   "action": {
     "default_title": "Derot",
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon128.png"
   },
+  "icons": { "128": "icons/icon128.png" },
   "content_scripts": [
     {
       "matches": ["*://*.youtube.com/*"],
