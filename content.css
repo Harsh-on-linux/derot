@@ -23,8 +23,9 @@ html[data-derot-hide-shorts="true"] ytd-guide-entry-renderer:has(a[href^="/short
   display: none !important;
 }
 
-/* Sidebar recommendations: hide inner list, collapse column so player re-centers.
-   Live chat: collapse (not display:none) so fullscreen player doesn't keep its space. */
+/* Sidebar recommendations: hide inner list, collapse column so player takes the space.
+   Live chat: collapse (not display:none) so the player doesn't reserve its space.
+   No width rules on #primary — YouTube's native layout handles windowed + fullscreen. */
 html[data-derot-hide-sidebar="true"] ytd-watch-next-secondary-results-renderer {
   display: none !important;
 }
@@ -38,25 +39,6 @@ html[data-derot-hide-sidebar="true"] ytd-live-chat-frame {
   border: 0 !important;
   padding: 0 !important;
   margin: 0 !important;
-}
-html[data-derot-hide-sidebar="true"]:not(:has(:fullscreen)) ytd-watch-flexy #columns.ytd-watch-flexy {
-  justify-content: center !important;
-}
-html[data-derot-hide-sidebar="true"]:not(:has(:fullscreen)) #primary.ytd-watch-flexy {
-  margin: 0 auto !important;
-  max-width: 1280px !important;
-  width: 100% !important;
-}
-/* Fullscreen: undo width constraints so player fills viewport */
-html:has(:fullscreen)[data-derot-hide-sidebar="true"] #primary.ytd-watch-flexy {
-  max-width: none !important;
-  width: auto !important;
-  margin: 0 !important;
-}
-html:has(:fullscreen) :fullscreen video.html5-main-video {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important;
 }
 
 /* End screens + info cards */
