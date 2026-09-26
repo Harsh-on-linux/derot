@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Derot — Minimal YouTube",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Zero-distraction YouTube: no Shorts, no feeds, no recommendations. Search and watch only.",
   "permissions": ["storage"],
   "host_permissions": ["*://*.youtube.com/*"],
