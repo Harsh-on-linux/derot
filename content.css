@@ -1,0 +1,48 @@
+/* Derot: hide distractions, gated by html[data-derot-hide-*="true"] (set by content.js) */
+
+/* Home feed */
+html[data-derot-hide-home="true"] ytd-browse[page-subtype="home"] #primary,
+html[data-derot-hide-home="true"] ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
+html[data-derot-hide-home="true"] ytd-browse[page-subtype="home"] ytd-rich-section-renderer {
+  display: none !important;
+}
+
+/* Shorts: shelves, tabs, links, player leftovers */
+html[data-derot-hide-shorts="true"] ytd-rich-shelf-renderer[is-shorts],
+html[data-derot-hide-shorts="true"] ytd-reel-shelf-renderer,
+html[data-derot-hide-shorts="true"] ytd-shorts,
+html[data-derot-hide-shorts="true"] ytd-reel-video-renderer,
+html[data-derot-hide-shorts="true"] a[href^="/shorts"],
+html[data-derot-hide-shorts="true"] [title="Shorts"],
+html[data-derot-hide-shorts="true"] ytd-mini-guide-entry-renderer[aria-label*="Shorts" i],
+html[data-derot-hide-shorts="true"] ytd-guide-entry-renderer:has(a[href^="/shorts"]) {
+  display: none !important;
+}
+
+/* Sidebar recommendations on watch page */
+html[data-derot-hide-sidebar="true"] ytd-watch-next-secondary-results-renderer,
+html[data-derot-hide-sidebar="true"] #secondary.ytd-watch-flexy {
+  display: none !important;
+}
+
+/* End screens + info cards */
+html[data-derot-hide-endscreen="true"] .ytp-endscreen-content,
+html[data-derot-hide-endscreen="true"] .ytp-ce-element,
+html[data-derot-hide-endscreen="true"] .ytp-ce-covering-overlay,
+html[data-derot-hide-endscreen="true"] .ytp-cards-button,
+html[data-derot-hide-endscreen="true"] .ytp-cards-teaser {
+  display: none !important;
+}
+
+/* Comments */
+html[data-derot-hide-comments="true"] #comments,
+html[data-derot-hide-comments="true"] ytd-comments {
+  display: none !important;
+}
+
+/* Left guide / explore noise (keep top search bar intact) */
+html[data-derot-hide-home="true"] #guide,
+html[data-derot-hide-home="true"] ytd-mini-guide-renderer,
+html[data-derot-hide-home="true"] ytd-guide-renderer {
+  display: none !important;
+}
