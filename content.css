@@ -39,16 +39,21 @@ html[data-derot-hide-sidebar="true"] ytd-live-chat-frame {
   padding: 0 !important;
   margin: 0 !important;
 }
-html[data-derot-hide-sidebar="true"] ytd-watch-flexy #columns.ytd-watch-flexy {
+html[data-derot-hide-sidebar="true"]:not(:has(:fullscreen)) ytd-watch-flexy #columns.ytd-watch-flexy {
   justify-content: center !important;
 }
-html[data-derot-hide-sidebar="true"] #primary.ytd-watch-flexy {
+html[data-derot-hide-sidebar="true"]:not(:has(:fullscreen)) #primary.ytd-watch-flexy {
   margin: 0 auto !important;
   max-width: 1280px !important;
   width: 100% !important;
 }
-/* Fullscreen: video must fill viewport even with chat collapsed */
-:fullscreen video.html5-main-video {
+/* Fullscreen: undo width constraints so player fills viewport */
+html:has(:fullscreen)[data-derot-hide-sidebar="true"] #primary.ytd-watch-flexy {
+  max-width: none !important;
+  width: auto !important;
+  margin: 0 !important;
+}
+html:has(:fullscreen) :fullscreen video.html5-main-video {
   width: 100% !important;
   height: 100% !important;
   object-fit: contain !important;
