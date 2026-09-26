@@ -13,11 +13,4 @@
 <label><input type="checkbox" id="hideEndscreen" checked> Hide end screens</label>
 <label><input type="checkbox" id="hideComments" checked> Hide comments</label>
 <p>Search and watch only.</p>
-<script>
-  const KEYS = ["hideHome", "hideShorts", "hideSidebar", "hideEndscreen", "hideComments"];
-  const DEFAULTS = Object.fromEntries(KEYS.map((k) => [k, true]));
-  chrome.storage.sync.get(DEFAULTS, (s) => KEYS.forEach((k) => (document.getElementById(k).checked = !!s[k])));
-  KEYS.forEach((k) =>
-    document.getElementById(k).addEventListener("change", (e) => chrome.storage.sync.set({ [k]: e.target.checked }))
-  );
-</script>
+<script src="popup.js"></script>
