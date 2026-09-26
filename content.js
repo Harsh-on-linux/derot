@@ -19,7 +19,14 @@
     document.documentElement.dataset[KEYMAP[k]] = "true";
   }
   if (chrome?.storage?.sync) {
-    chrome.storage.sync.get(DEFAULTS, (s) => applyFlags(s));
+    chrome.storage.sync.get(DEFAULTS, (s) => { applyFlags(s); renderHome(); });
+    chrome.storage.onChanged.addListener((c, area) => {
+      if (area !== "sync") return;
+      const s = {};
+      for (const k of Object.keys(KEYMAP)) if (c[k]) s[k] = c[k].newValue;
+      applyFlags({ ...DEFAULTS, ...s });
+      renderHome();
+    });
   }
   function applyFlags(s) {
     for (const k of Object.keys(KEYMAP)) {
