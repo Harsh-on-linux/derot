@@ -23,12 +23,35 @@ html[data-derot-hide-shorts="true"] ytd-guide-entry-renderer:has(a[href^="/short
   display: none !important;
 }
 
-/* Sidebar recommendations + live chat on watch page */
-html[data-derot-hide-sidebar="true"] ytd-watch-next-secondary-results-renderer,
+/* Sidebar recommendations: hide inner list, collapse column so player re-centers.
+   Live chat: collapse (not display:none) so fullscreen player doesn't keep its space. */
+html[data-derot-hide-sidebar="true"] ytd-watch-next-secondary-results-renderer {
+  display: none !important;
+}
 html[data-derot-hide-sidebar="true"] #secondary.ytd-watch-flexy,
 html[data-derot-hide-sidebar="true"] #chat,
 html[data-derot-hide-sidebar="true"] ytd-live-chat-frame {
-  display: none !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  flex: 0 0 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+html[data-derot-hide-sidebar="true"] ytd-watch-flexy #columns.ytd-watch-flexy {
+  justify-content: center !important;
+}
+html[data-derot-hide-sidebar="true"] #primary.ytd-watch-flexy {
+  margin: 0 auto !important;
+  max-width: 1280px !important;
+  width: 100% !important;
+}
+/* Fullscreen: video must fill viewport even with chat collapsed */
+:fullscreen video.html5-main-video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
 }
 
 /* End screens + info cards */
