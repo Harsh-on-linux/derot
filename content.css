@@ -19,9 +19,11 @@ html[data-derot-hide-shorts="true"] ytd-guide-entry-renderer:has(a[href^="/short
   display: none !important;
 }
 
-/* Sidebar recommendations on watch page */
+/* Sidebar recommendations + live chat on watch page */
 html[data-derot-hide-sidebar="true"] ytd-watch-next-secondary-results-renderer,
-html[data-derot-hide-sidebar="true"] #secondary.ytd-watch-flexy {
+html[data-derot-hide-sidebar="true"] #secondary.ytd-watch-flexy,
+html[data-derot-hide-sidebar="true"] #chat,
+html[data-derot-hide-sidebar="true"] ytd-live-chat-frame {
   display: none !important;
 }
 
