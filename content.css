@@ -62,3 +62,12 @@ html[data-derot-hide-home="true"] ytd-mini-guide-renderer,
 html[data-derot-hide-home="true"] ytd-guide-renderer {
   display: none !important;
 }
+
+/* Scrollbars: clip horizontal overflow from collapsed columns (clip keeps sticky masthead working);
+   hide bars visually but keep wheel-scroll. */
+html[data-derot-hide-sidebar="true"] ytd-app {
+  overflow-x: clip;
+}
+html[data-derot-hide-sidebar="true"] ::-webkit-scrollbar {
+  display: none !important;
+}
